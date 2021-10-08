@@ -1,0 +1,26 @@
+{
+  "name": "webmin",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon index.js",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lint": "eslint --ext .js ./"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "babel-eslint": "^10.1.0",
+    "eslint": "^7.32.0",
+    "nodemon": "^2.0.13"
+  },
+  "dependencies": {
+    "@sentry/node": "^6.13.3",
+    "@sentry/tracing": "^6.13.3",
+    "discord.js": "^13.2.0",
+    "dotenv": "^10.0.0",
+    "knex": "^0.95.11",
+    "pg": "^8.7.1"
+  }
+}
