@@ -96,7 +96,7 @@ client.on('guildMemberUpdate', async (oldGuildMember, newGuildMember) => {
     console.log(`Guild Member ${oldGuildMember.displayName} has updated.`);
 
     if (oldGuildMember.nickname !== newGuildMember.nickname) {
-        updateUser(newGuildMember, {
+        await updateUser(newGuildMember, {
             discord_nickname: newGuildMember.nickname,
         });
     } else if (oldGuildMember.roles.cache.size !== newGuildMember.roles.cache.size) {

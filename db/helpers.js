@@ -127,7 +127,7 @@ function addRole (role) {
  */
 function updateRole (role) {
     return knex('discord_roles')
-        .where({discord_role_id: role.id})
+        .where('discord_role_id', role.id)
         .update({
             discord_role_name: role.name,
             discord_role_position: role.position
@@ -142,7 +142,7 @@ function updateRole (role) {
  */
 function deleteRole (role) {
     return knex('discord_roles')
-        .where({discord_role_id: role.id})
+        .where('discord_role_id', role.id)
         .del();
 }
 
@@ -176,7 +176,7 @@ function addUser (guildMember) {
  */
 function updateUser (guildMember, fields) {
     return knex('discord_users')
-        .where({discord_user_id: guildMember.id})
+        .where('discord_user_id', guildMember.id)
         .update(fields);
 }
 
