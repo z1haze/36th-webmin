@@ -84,7 +84,6 @@ client.on('roleDelete', async (role) => {
  */
 client.on('guildMemberUpdate', async (oldGuildMember, newGuildMember) => {
     if (oldGuildMember.nickname !== newGuildMember.nickname) {
-        // updated nickname
         updateUser(newGuildMember, {
             discord_nickname: newGuildMember.nickname,
         });

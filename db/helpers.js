@@ -188,17 +188,14 @@ function updateUser (guildMember, fields) {
  * @returns {Promise<void>}
  */
 async function syncUserRoles (guildMember, dbUser = null) {
-    console.log(`Syncing Roles For ${guildMember.displayName}`);
-
+    const start = Date.now();
     const roles = guildMember.roles.cache;
 
-    // first clear the user's roles
     if (dbUser) {
         await knex('discord_roles_users').where('discord_user_id', dbUser.discord_user_id).del();
     }
 
-    const trx = await knex.transaction();
-
+    // build the user roles
     const entries = roles.map((role) => {
         return {
             discord_user_id: guildMember.id,
@@ -206,9 +203,9 @@ async function syncUserRoles (guildMember, dbUser = null) {
         };
     });
 
-    await trx('discord_roles_users')
-        .insert(entries)
-        .then(() => trx.commit());
+    await knex('discord_roles_users').insert(entries);
+
+    console.log(`Syncing Roles For ${guildMember.displayName} took ${Date.now() - start}ms`);
 }
 
 module.exports = {
