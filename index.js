@@ -16,6 +16,8 @@ const client = new Client({
  * Handle adding new discord member to database on guild join
  */
 client.on('guildMemberAdd', async (guildMember) => {
+    console.log(`${guildMember.displayName} joined the server`);
+
     const userRows = await knex('discord_users')
         .where({ discord_user_id:  guildMember.id});
 
@@ -46,6 +48,8 @@ client.on('guildMemberAdd', async (guildMember) => {
  * Handle flagging guild member as quit and remove all roles in the database
  */
 client.on('guildMemberRemove', async (guildMember) => {
+    console.log(`${guildMember.displayName} left the server`);
+
     const userRows = await knex('discord_users')
         .where({ discord_user_id:  guildMember.id});
 
@@ -62,6 +66,8 @@ client.on('guildMemberRemove', async (guildMember) => {
  * Handle adding new roles to the database
  */
 client.on('roleCreate', async (role) => {
+    console.log(`${role.id} - ${role.name} was created.`);
+
     await addRole(role);
 });
 
@@ -69,6 +75,8 @@ client.on('roleCreate', async (role) => {
  * Handle updating a role in the database
  */
 client.on('roleUpdate', async (oldRole, newRole) => {
+    console.log(`${oldRole.id} was updated.`);
+
     await updateRole(newRole);
 });
 
@@ -76,6 +84,8 @@ client.on('roleUpdate', async (oldRole, newRole) => {
  * Handle deleting a role from the database
  */
 client.on('roleDelete', async (role) => {
+    console.log(`${role.name} was deleted.`);
+
     await deleteRole(role);
 });
 
@@ -83,6 +93,8 @@ client.on('roleDelete', async (role) => {
  * Handle nickname role updates for a user
  */
 client.on('guildMemberUpdate', async (oldGuildMember, newGuildMember) => {
+    console.log(`Guild Member ${oldGuildMember.displayName} has updated.`);
+
     if (oldGuildMember.nickname !== newGuildMember.nickname) {
         updateUser(newGuildMember, {
             discord_nickname: newGuildMember.nickname,
@@ -98,6 +110,8 @@ client.on('guildMemberUpdate', async (oldGuildMember, newGuildMember) => {
  * Handle username or user  discriminator changes
  */
 client.on('userUpdate', async (oldUser, newUser) => {
+    console.log(`User ${oldUser.username} has updated.`);
+
     await updateUser(newUser, {
         discord_username: newUser.username,
         discord_discriminator: newUser.discriminator,
