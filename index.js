@@ -93,14 +93,14 @@ client.on('roleDelete', async (role) => {
  * Handle nickname role updates for a user
  */
 client.on('guildMemberUpdate', async (oldGuildMember, newGuildMember) => {
-    console.log(`Guild Member ${oldGuildMember.displayName} has updated.`);
+    console.log(`Guild Member ${oldGuildMember.displayName} was updated.`);
 
     if (oldGuildMember.nickname !== newGuildMember.nickname) {
         await updateUser(newGuildMember, {
             discord_nickname: newGuildMember.nickname,
         });
     } else if (oldGuildMember.roles.cache.size !== newGuildMember.roles.cache.size) {
-        await syncUserRoles(newGuildMember);
+        await syncUserRoles(newGuildMember, {discord_user_id: newGuildMember.id});
     } else {
         console.warn('Untracked guildMemberUpdate')
     }
@@ -122,16 +122,6 @@ client.on('userUpdate', async (oldUser, newUser) => {
 client.on('ready', async () => {
     // eslint-disable-next-line no-console
     console.info(`Logged in as ${client.user.tag}!`);
-
-    // register event listeners for the following (but not limited to) events
-    // 1. user join - done
-    // 2. user leave - done
-    // 3. nickname change - done
-    // 4. role add - done
-    // 5. role delete - done
-    // 6. role edit - done
-    // 7. user role add - done
-    // 8. user role remove - done
 
     const guild = client.guilds.cache.get(GUILD_ID);
 

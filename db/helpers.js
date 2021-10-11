@@ -184,15 +184,15 @@ function updateUser (guildMember, fields) {
  * Sync a discord member's roles to the database
  *
  * @param guildMember
- * @param dbUser
+ * @param existingUser
  * @returns {Promise<void>}
  */
-async function syncUserRoles (guildMember, dbUser = null) {
+async function syncUserRoles (guildMember, existingUser = null) {
     const start = Date.now();
     const roles = guildMember.roles.cache;
 
-    if (dbUser) {
-        await knex('discord_roles_users').where('discord_user_id', dbUser.discord_user_id).del();
+    if (existingUser) {
+        await knex('discord_roles_users').where('discord_user_id', existingUser.discord_user_id).del();
     }
 
     // build the user roles
