@@ -32,7 +32,7 @@ async function syncUsers (guild) {
 
     if (usersToDelete.size > 0) {
         // flag user as quit
-        await knex('discord_members')
+        await knex('discord_users')
             .whereIn('discord_user_id', Array.from(usersToDelete))
             .update({quit_timestamp: Date.now()});
 
