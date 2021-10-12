@@ -54,10 +54,7 @@ client.on('guildMemberRemove', async (guildMember) => {
         .where({ discord_user_id:  guildMember.id});
 
     if (userRows.length > 0) {
-        updateUser(guildMember, {
-            quit_timestamp: Date.now()
-        });
-
+        await updateUser(guildMember, {quit_timestamp: knex.fn.now()});
         await knex('discord_roles_users').where('discord_user_id', userRows[0].discord_user_id).del();
     }
 });

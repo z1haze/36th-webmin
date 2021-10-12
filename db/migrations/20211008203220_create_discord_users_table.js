@@ -28,7 +28,7 @@ exports.up = function (knex) {
         table.date('inactivity_excused_until');
 
         // if the user left the discord, this is when that happened
-        table.timestamp('quit_timestamp');
+        table.timestamp('quit_timestamp', { useTz: false });
     });
 };
 

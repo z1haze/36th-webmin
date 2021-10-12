@@ -34,7 +34,7 @@ async function syncUsers (guild) {
         // flag user as quit
         await knex('discord_users')
             .whereIn('discord_user_id', Array.from(usersToDelete))
-            .update({quit_timestamp: Date.now()});
+            .update({quit_timestamp: knex.fn.now()});
 
         // delete user's roles
         await knex('discord_roles_users').whereIn('discord_user_id', Array.from(usersToDelete)).del();
