@@ -102,7 +102,7 @@ client.on('guildMemberUpdate', async (oldGuildMember, newGuildMember) => {
     } else if (oldGuildMember.roles.cache.size !== newGuildMember.roles.cache.size) {
         await syncUserRoles(newGuildMember, {discord_user_id: newGuildMember.id});
     } else {
-        console.warn('Untracked guildMemberUpdate')
+        console.warn(`Untracked guildMemberUpdate for ${newGuildMember.displayName}`)
     }
 });
 
