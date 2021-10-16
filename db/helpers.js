@@ -115,7 +115,7 @@ function addRole (role) {
     return knex('discord_roles').insert([{
         discord_role_id: role.id,
         discord_role_name: role.name,
-        discord_role_position: role.position
+        discord_role_position: role.rawPosition
     }]);
 }
 
@@ -130,7 +130,7 @@ function updateRole (role) {
         .where('discord_role_id', role.id)
         .update({
             discord_role_name: role.name,
-            discord_role_position: role.position
+            discord_role_position: role.rawPosition
         });
 }
 
